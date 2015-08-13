@@ -1,0 +1,10 @@
+{
+"name": "frisby_test",
+"author": "Pedro",
+"main": "meu_projeto_de_teste_spec.js",
+"version": "0.0.1",
+"dependencies": {
+    "frisby": "latest",
+    "jasmine-node": "latest"
+    }
+}
