@@ -1,2 +1,3 @@
 # FrislyAPITest
-Some tests using Frisly.js and test API to understand the tool.
+Some tests using Frisly.js and [jsonplaceholder API](https://github.com/typicode/jsonplaceholder) to understand the tool.
+
