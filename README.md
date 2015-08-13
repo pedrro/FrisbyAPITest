@@ -3,7 +3,7 @@ Some tests using [Frisby.js](http://frisbyjs.com/) and [jsonplaceholder API](htt
 
 ##Dependencies
 
-To run this project, you need to install [Frisby.js](http://frisbyjs.com/) and [jasmine-node][https://github.com/mhevery/jasmine-node]
+To run this project, you need to install [Frisby.js](http://frisbyjs.com/) and [jasmine-node](https://github.com/mhevery/jasmine-node)
 
 ##Run the tests
 
