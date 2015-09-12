@@ -1,69 +1,57 @@
-
 var frisby = require('frisby');
-var flightId = 1;
 
-var baseURL = 'http://localhost:3000/api/flights/';
+frisby.create('Testing API - Posts')
+    .get('http://jsonplaceholder.typicode.com/posts/2')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes({
+        "userId": Number,
+  		"id": Number,
+  		"title": String,
+  		"body": String
+    }).inspectBody().toss();
 
-frisby.create("Create a new flight")
-  .post(baseURL,{
-    "data_partida": "2015-10-10",
-    "data_chegada": "2015-10-10",
-    "numero": "1",
-    "origem": "porto alegre",
-    "destino": "rio de janeiro",
-    "duracao": 0,
-    "lugares": 0,
-    "companhia": "TAM",
-    "id": flightId
-  })
+
+frisby.create('Testing API - Existing Users - Test passing')
+  .get('http://jsonplaceholder.typicode.com/users/1')
   .expectStatus(200)
-  .inspectBody()
-  .toss();
-
-frisby.create("Verify if fligth exists")
-  .get(baseURL+flightId+'/exists')
-  .expectStatus(200)
-  .expectJSON({
-    "exists":true
-  })
-  .toss();
-
-frisby.create("Verify if doesn't fligth exists")
-  .get(baseURL+2+'/exists')
-  .expectStatus(200)
-  .expectJSON({
-    "exists":false
-  })
-  .toss();
-
-frisby.create("Updating attributes for a exists")
-  .put(baseURL+flightId,{
-    "data_partida": "2015-10-10",
-    "data_chegada": "2015-10-10",
-    "numero": "1",
-    "origem": "porto alegre",
-    "destino": "rio de janeiro",
-    "duracao": 0,
-    "lugares": 0,
-    "companhia": "TAM1",
-    "id": flightId
-  }, {json:true})
-  .expectHeaderContains('Content-Type','json')
-  .expectJSON({
-    "data_partida": "2015-10-10T00:00:00.000Z",
-    "data_chegada": "2015-10-10T00:00:00.000Z",
-    "numero": "1",
-    "origem": "porto alegre",
-    "destino": "rio de janeiro",
-    "duracao": 0,
-    "lugares": 0,
-    "companhia": "TAM1",
-    "id": flightId
+    .expectJSONTypes({
+      "id": Number,
+      "name": String,
+      "username": String,
+      "email": String
     })
-  .inspectBody()
-  .toss();
+    .expectJSON(
+    {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz"
+    })
+    .toss();
 
-frisby.create("Delete existing flight")
-  .delete(baseURL + flightId)
-  .expectStatus(204)
-  .toss();
+  frisby.create('Testing API - 404 status expected')
+    .get('http://jsonplaceholder.typicode.com/users/500')
+    .expectStatus(404)
+    .toss();
+
+
+//Example of test failure
+
+frisby.create('Testing API - Existing Users - Test failure')
+  .get('http://jsonplaceholder.typicode.com/users/1')
+  .expectStatus(200)
+    .expectJSONTypes({
+      "id": Number,
+      "name": String,
+      "username": String,
+      "email": String
+    })
+    .expectJSON(
+    {
+      "id": 1,
+      "name": "Leanne Graham11",
+      "username": "Bret",
+      "email": "Sincere@april.biz"
+    })
+    .toss();
